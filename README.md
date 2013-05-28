@@ -23,6 +23,8 @@ Set up the project
 
 ### Create a Maven POM
 
+TODO: This guide was written using gradle and has no current maven support.
+
 {!snippet:maven-project-setup-options}
 
 {!snippet:bootstrap-starter-pom-disclaimer}
@@ -117,13 +119,13 @@ This example sets up a JDBC `DataSource` using Spring's handy `SimpleDriverDataS
 
 Once we have our configured `JdbcTemplate`, it's easy to then start making calls to the database. 
 
-First, we install some DDL using the `JdbcTemplate#execute` method.
+First, we install some DDL using `JdbcTemplate`'s `execute` method.
 
-Then, we install some records in our newly created table using `JdbcTemplate#update`. The first argument to the method call is the query string, the last argument (the array of `Object`s) holds the variables to be substituted into the query where the "`?`" characters are.
+Then, we install some records in our newly created table using `JdbcTemplate`'s `update` method. The first argument to the method call is the query string, the last argument (the array of `Object`s) holds the variables to be substituted into the query where the "`?`" characters are.
 
-> Using `?` for arguments helps avoid [SQL injection attacks](http://en.wikipedia.org/wiki/SQL_injection) by instructing JDBC to bind variables.
+> Using `?` for arguments avoids [SQL injection attacks](http://en.wikipedia.org/wiki/SQL_injection) by instructing JDBC to bind variables.
 
-Finally we use the `JdbcTemplate#query` method to search our table for records matching our criteria. We again use the "`?`" arguments to parameterize the query, passing in the actual values when we make the call. The last argument in the `JdbcTemplate#query` method is an instance of `RowMapper<T>`, which we provide. Spring's done 90% of the work, but it can't possibly know what we want it to do with the result set data. So, we provide a `RowMapper<T>` instance that Spring will call for each record, aggregate the results, and then give back to us as a collection. 
+Finally we use the `query` method to search our table for records matching our criteria. We again use the "`?`" arguments to parameterize the query, passing in the actual values when we make the call. The last argument in the `query` method is an instance of `RowMapper<T>`, which we provide. Spring's done 90% of the work, but it can't possibly know what we want it to do with the result set data. So, we provide a `RowMapper<T>` instance that Spring will call for each record, aggregate the results, and then give back to us as a collection. 
 
 Building and Running the Client
 --------------------------------------
@@ -135,19 +137,12 @@ $ ./gradlew run
 	
 This will compile the `main` method and then run it.
 
+```
+Iterating through the customer records in the DB where the first_name = 'Josh'
+Customer{firstName='Josh', lastName='Bloch', id=3}
+```
 
-Next Steps
+
+Summary
 ----------
-Congratulations! You have just developed a simple JDBC client using Spring.  
-
-There's more to building and working with JDBC and datastores in general than is covered here. You may want to continue your exploration of Spring and REST with the following Getting Started guides:
-
-* **Consuming REST Services on Android**
-* Handling POST, PUT, and GET requests in REST endpoints
-* Creating self-describing APIs with HATEOAS
-* Securing a REST endpoint with HTTP Basic
-* Securing a REST endpoint with OAuth
-* Consuming REST APIs
-* Testing REST APIs
-
-
+Congratulations! You have just developed a simple JDBC client using Spring. There's more to building and working with JDBC and data stores in general than is covered here, but this should provide a good start.
