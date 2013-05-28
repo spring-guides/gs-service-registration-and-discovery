@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public class Main {
+public class Application {
 
     public static class Customer {
         private String firstName, lastName;
