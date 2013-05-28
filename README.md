@@ -1,29 +1,39 @@
-Getting Started: Accessing Relational Data with Spring
-=========================================
+# Getting Started: Accessing Relational Data with Spring
 
-This Getting Started guide will walk you through the process of accessing relational data with Spring.
-To help you get started, we've provided an initial project structure for you in GitHub:
+What you'll build
+-----------------
 
-```sh
-$ git clone https://github.com/springframework-meta/gs-relational-data-access.git
-```
+This guide walks you through the process of accessing relational data with Spring.
 
-Before we can write the REST endpoint itself, there's some initial project setup that's required. Or, you can skip straight to the [fun part]().
+What you'll need
+----------------
 
-Selecting Dependencies
-----------------------
-The sample in this Getting Started Guide will leverage Spring's core data-access modules and the H2, in-memory, embedded database. 
+- About 15 minutes
+ - {!snippet:prereq-editor-jdk-buildtools}
 
-  - com.h2database:h2:1.3.168 
-  - org.springframework:spring-orm:3.2.2.RELEASE
+## {!snippet:how-to-complete-this-guide}
 
-Click here for details on how to map these dependencies to your specific build tool.
+<a name="scratch"></a>
+Set up the project
+------------------
 
-Invoking REST services with the RestTemplate
-----------------------------
-Spring provides a convenient template class called the `JdbcTemplate`. The `JdbcTemplate` makes working with relational, SQL-databases through JDBC a trivial affair. When you look at most JDBC code, it's mired in resource accquisition, connection accquisition, exception handling and general error checking code that is wholey unrelated to what the code is trying to acheive. The `JdbcTemplate` takes care of all of that for you. All you have to do is focus on the task at hand.
+{!snippet:build-system-intro}
 
+{!snippet:create-directory-structure-hello}
 
+### Create a Maven POM
+
+{!snippet:maven-project-setup-options}
+
+{!snippet:bootstrap-starter-pom-disclaimer}
+
+<a name="initial"></a>
+Creating a Customer object, setting up a database, and storing/retrieving the data
+----------------------------------------------------------------------------------
+
+Spring provides a convenient template class called the `JdbcTemplate`. It makes working with relational SQL databases through JDBC a trivial affair. When you look at most JDBC code, it's mired in resource acquisition, connection management, exception handling and general error checking code that is wholly unrelated to what the code is trying to achieve. The `JdbcTemplate` takes care of all of that for you. All you have to do is focus on the task at hand.
+
+`src/main/java/hello/Main.java`
 ```java
 package hello;
 
@@ -103,13 +113,15 @@ public class Main {
 
 ```
 
-This example sets up a JDBC `DataSource` using the Spring class `SimpleDriverDataSource` (this class is **not** intended for production!). Then, we use that to construct a `JdbcTemplate` instance. For more on DatSources, see [this link]().
+This example sets up a JDBC `DataSource` using Spring's handy `SimpleDriverDataSource` (this class is **not** intended for production!). Then, we use that to construct a `JdbcTemplate` instance. For more on DatSources, see [this link]().
 
 Once we have our configured `JdbcTemplate`, it's easy to then start making calls to the database. 
 
 First, we install some DDL using the `JdbcTemplate#execute` method.
 
 Then, we install some records in our newly created table using `JdbcTemplate#update`. The first argument to the method call is the query string, the last argument (the array of `Object`s) holds the variables to be substituted into the query where the "`?`" characters are.
+
+> Using `?` for arguments helps avoid [SQL injection attacks](http://en.wikipedia.org/wiki/SQL_injection) by instructing JDBC to bind variables.
 
 Finally we use the `JdbcTemplate#query` method to search our table for records matching our criteria. We again use the "`?`" arguments to parameterize the query, passing in the actual values when we make the call. The last argument in the `JdbcTemplate#query` method is an instance of `RowMapper<T>`, which we provide. Spring's done 90% of the work, but it can't possibly know what we want it to do with the result set data. So, we provide a `RowMapper<T>` instance that Spring will call for each record, aggregate the results, and then give back to us as a collection. 
 
@@ -118,7 +130,7 @@ Building and Running the Client
 To invoke the code and see the results of the search, simply run it from the command line, like this:
 
 ```sh
-$ gradle run
+$ ./gradlew run
 ```
 	
 This will compile the `main` method and then run it.
