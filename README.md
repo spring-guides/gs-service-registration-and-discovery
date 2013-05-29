@@ -8,7 +8,7 @@ This guide walks you through the process of accessing relational data with Sprin
 What you'll need
 ----------------
 
-- About 15 minutes
+ - About 15 minutes
  - {!snippet:prereq-editor-jdk-buildtools}
 
 ## {!snippet:how-to-complete-this-guide}
@@ -24,6 +24,58 @@ Set up the project
 ### Create a Maven POM
 
 {!snippet:maven-project-setup-options}
+
+`pom.xml`
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.springframework</groupId>
+    <artifactId>gs-relational-data-access</artifactId>
+    <version>0.1.0</version>
+
+    <parent>
+        <groupId>org.springframework.bootstrap</groupId>
+        <artifactId>spring-bootstrap-starters</artifactId>
+        <version>0.5.0.BUILD-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- TODO: remove once bootstrap goes GA -->
+    <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>http://repo.springsource.org/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>http://repo.springsource.org/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
+```
 
 {!snippet:bootstrap-starter-pom-disclaimer}
 
@@ -119,22 +171,30 @@ Then, we install some records in our newly created table using `JdbcTemplate`'s 
 
 Finally we use the `query` method to search our table for records matching our criteria. We again use the "`?`" arguments to parameterize the query, passing in the actual values when we make the call. The last argument in the `query` method is an instance of `RowMapper<T>`, which we provide. Spring's done 90% of the work, but it can't possibly know what we want it to do with the result set data. So, we provide a `RowMapper<T>` instance that Spring will call for each record, aggregate the results, and then give back to us as a collection. 
 
-Building and Running the Client
---------------------------------------
-To invoke the code and see the results of the search, simply run it from the command line, like this:
 
-```sh
-$ ./gradlew run
-```
-    
-This will compile the `main` method and then run it.
+## {!snippet:build-an-executable-jar}
 
-```
-Iterating through the customer records in the DB where the first_name = 'Josh'
-Customer{firstName='Josh', lastName='Bloch', id=3}
-```
+
+Run the application
+-------------------
+
+Run your application with `java -jar` at the command line:
+
+    java -jar target/gs-relational-data-access-0.1.0.jar
+
+
+You should see the following output:
+
+    Creating tables
+    Inserting customer record for John Woo
+    Inserting customer record for Jeff Dean
+    Inserting customer record for Josh Bloch
+    Inserting customer record for Josh Long
+    Querying for customer records where first_name = 'Josh':
+    Customer[id=3, firstName='Josh', lastName='Bloch']
+    Customer[id=4, firstName='Josh', lastName='Long']
 
 
 Summary
-----------
-Congratulations! You have just developed a simple JDBC client using Spring. There's more to building and working with JDBC and data stores in general than is covered here, but this should provide a good start.
+-------
+Congrats! You've just developed a simple JDBC client using Spring. There's more to building and working with JDBC and data stores in general than is covered here, but this should provide a good start.
