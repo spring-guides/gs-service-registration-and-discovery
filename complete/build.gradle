@@ -6,7 +6,7 @@ apply plugin:'application'
 
 repositories { mavenCentral() }
 
-mainClassName = "hello.Main"
+mainClassName = "hello.Application"
 
 dependencies {
     compile "com.h2database:h2:1.3.168"
