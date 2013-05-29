@@ -21,7 +21,7 @@ Set up the project
 
 {!snippet:create-directory-structure-hello}
 
-### Create a Maven
+### Create a Maven POM
 
 {!snippet:maven-project-setup-options}
 
