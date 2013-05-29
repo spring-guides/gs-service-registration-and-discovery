@@ -132,7 +132,7 @@ To invoke the code and see the results of the search, simply run it from the com
 ```sh
 $ ./gradlew run
 ```
-	
+    
 This will compile the `main` method and then run it.
 
 ```
