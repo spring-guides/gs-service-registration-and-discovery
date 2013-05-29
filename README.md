@@ -21,9 +21,7 @@ Set up the project
 
 {!snippet:create-directory-structure-hello}
 
-### Create a Maven POM
-
-TODO: This guide was written using gradle and has no current maven support.
+### Create a Maven
 
 {!snippet:maven-project-setup-options}
 
