@@ -80,9 +80,9 @@ Set up the project
 {!snippet:bootstrap-starter-pom-disclaimer}
 
 <a name="initial"></a>
-Creating a Customer object
+Create a Customer object
 --------------------------
-The first thing we need is a domain object to represent our data. In this case, we are going to store and retrieve first and last names. To capture this, you need to define a `Customer` class.
+The simple data access logic you will work with below below manages first and last names of customers. To represent this data at the application level, create a `Customer` class.
 
 `src/main/java/hello/Customer`
 ```java
@@ -110,9 +110,10 @@ public class Customer {
 ```
 
 
-Storing and retrieving data
+Store and retrieve data
 ---------------------------
-Spring provides a convenient template class called the `JdbcTemplate`. It makes working with relational SQL databases through JDBC a trivial affair. When you look at most JDBC code, it's mired in resource acquisition, connection management, exception handling and general error checking code that is wholly unrelated to what the code is trying to achieve. The `JdbcTemplate` takes care of all of that for you. All you have to do is focus on the task at hand.
+
+Spring provides a template class called `JdbcTemplate` that makes it easy to work with SQL relational databases and JDBC. Most JDBC code is mired in resource acquisition, connection management, exception handling, and general error checking that is wholly unrelated to what the code is meant to achieve. The `JdbcTemplate` takes care of all of that for you. All you have to do is focus on the task at hand.
 
 `src/main/java/hello/Application.java`
 ```java
@@ -170,18 +171,19 @@ public class Application {
 }
 ```
 
-This example sets up a JDBC `DataSource` using Spring's handy `SimpleDriverDataSource` (this class is **not** intended for production!). Then, we use that to construct a `JdbcTemplate` instance. For more on DataSources, see [this link]().
+In this example you set up a JDBC [`DataSource`]() using Spring's handy `SimpleDriverDataSource`. Then, you use the `DataSource` to construct a `JdbcTemplate` instance. 
 
-Once we have our configured `JdbcTemplate`, it's easy to then start making calls to the database. 
+> **Note:** `SimpleDriverDataSource` is a convenience class and **not** intended for production.
 
-First, we configure the table to store data using `JdbcTemplate`'s `execute` method.
+After you configure `JdbcTemplate`, it's easy to start making calls to the database. 
 
-Then, we insert some records in our newly created table using `JdbcTemplate`'s `update` method. The first argument to the method call is the query string, the last argument (the array of `Object`s) holds the variables to be substituted into the query where the "`?`" characters are.
+First, you install some DDL using `JdbcTemplate`'s `execute` method.
+
+Then, you install some records in your newly created table using `JdbcTemplate`'s `update` method. The first argument to the method call is the query string, the last argument (the array of `Object`s) holds the variables to be substituted into the query where the "`?`" characters are.
 
 > **Note:** Using `?` for arguments avoids [SQL injection attacks](http://en.wikipedia.org/wiki/SQL_injection) by instructing JDBC to bind variables.
 
-Finally we use the `query` method to search our table for records matching our criteria. We again use the "`?`" arguments to parameterize the query, passing in the actual values when we make the call. The last argument in the `query` method is an instance of `RowMapper<T>`, which we provide. Spring's done 90% of the work, but it can't possibly know what we want it to do with the result set data. So, we provide a `RowMapper<T>` instance that Spring will call for each record, aggregate the results, and then give back to us as a collection. 
-
+Finally you use the `query` method to search your table for records matching the criteria. You again use the "`?`" arguments to create parameters for the query, passing in the actual values when you make the call. The last argument in the `query` method is an instance of `RowMapper<T>`, which we provide. Spring's done 90% of the work, but it can't know what you want it to do with the result set data. So, you provide a `RowMapper<T>` instance that Spring will call for each record, aggregate the results, and return as a collection. 
 
 ## {!snippet:build-an-executable-jar}
 
@@ -208,4 +210,4 @@ You should see the following output:
 
 Summary
 -------
-Congrats! You've just developed a simple JDBC client using Spring. There's more to building and working with JDBC and data stores in general than is covered here, but this should provide a good start.
+Congrats! You've just used Spring to develop a simple JDBC client. There's more to building and working with JDBC and data stores in general than is covered here, but this should provide a good start.
