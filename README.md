@@ -80,9 +80,38 @@ Set up the project
 {!snippet:bootstrap-starter-pom-disclaimer}
 
 <a name="initial"></a>
-Creating a Customer object, setting up a database, and storing/retrieving the data
-----------------------------------------------------------------------------------
+Creating a Customer object
+--------------------------
+The first thing we need is a domain object to represent our data. In this case, we are going to store and retrieve first and last names. To capture this, you need to define a `Customer` class.
 
+`src/main/java/hello/Customer`
+```java
+package hello;
+
+public class Customer {
+    private long id;
+    private String firstName, lastName;
+
+    public Customer(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Customer[id=%d, firstName='%s', lastName='%s']",
+                id, firstName, lastName);
+    }
+
+    // getters & setters omitted for brevity
+}
+```
+
+
+Storing and retrieving data
+---------------------------
 Spring provides a convenient template class called the `JdbcTemplate`. It makes working with relational SQL databases through JDBC a trivial affair. When you look at most JDBC code, it's mired in resource acquisition, connection management, exception handling and general error checking code that is wholly unrelated to what the code is trying to achieve. The `JdbcTemplate` takes care of all of that for you. All you have to do is focus on the task at hand.
 
 `src/main/java/hello/Application.java`
@@ -91,32 +120,13 @@ package hello;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 public class Application {
-
-    public static class Customer {
-        private long id;
-        private String firstName, lastName;
-
-        public Customer(long id, String firstName, String lastName) {
-            this.id = id;
-            this.firstName = firstName;
-            this.lastName = lastName;
-        }
-
-        @Override
-        public String toString() {
-            return String.format(
-                    "Customer[id=%d, firstName='%s', lastName='%s']",
-                    id, firstName, lastName);
-        }
-
-        // getters & setters omitted for brevity
-    }
 
     public static void main(String args[]) {
         // simple DS for test (not for production!)
@@ -143,7 +153,7 @@ public class Application {
         }
 
         System.out.println("Querying for customer records where first_name = 'Josh':");
-        Collection<Customer> results = jdbcTemplate.query(
+        List<Customer> results = jdbcTemplate.query(
                 "select * from customers where first_name = ?", new Object[] { "Josh" },
                 new RowMapper<Customer>() {
                     @Override
@@ -153,19 +163,20 @@ public class Application {
                     }
                 });
 
-        for (Customer customer : results)
+        for (Customer customer : results) {
             System.out.println(customer);
+        }
     }
 }
 ```
 
-This example sets up a JDBC `DataSource` using Spring's handy `SimpleDriverDataSource` (this class is **not** intended for production!). Then, we use that to construct a `JdbcTemplate` instance. For more on DatSources, see [this link]().
+This example sets up a JDBC `DataSource` using Spring's handy `SimpleDriverDataSource` (this class is **not** intended for production!). Then, we use that to construct a `JdbcTemplate` instance. For more on DataSources, see [this link]().
 
 Once we have our configured `JdbcTemplate`, it's easy to then start making calls to the database. 
 
-First, we install some DDL using `JdbcTemplate`'s `execute` method.
+First, we configure the table to store data using `JdbcTemplate`'s `execute` method.
 
-Then, we install some records in our newly created table using `JdbcTemplate`'s `update` method. The first argument to the method call is the query string, the last argument (the array of `Object`s) holds the variables to be substituted into the query where the "`?`" characters are.
+Then, we insert some records in our newly created table using `JdbcTemplate`'s `update` method. The first argument to the method call is the query string, the last argument (the array of `Object`s) holds the variables to be substituted into the query where the "`?`" characters are.
 
 > **Note:** Using `?` for arguments avoids [SQL injection attacks](http://en.wikipedia.org/wiki/SQL_injection) by instructing JDBC to bind variables.
 

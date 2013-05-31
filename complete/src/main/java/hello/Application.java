@@ -2,32 +2,13 @@ package hello;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 public class Application {
-
-    public static class Customer {
-        private long id;
-        private String firstName, lastName;
-
-        public Customer(long id, String firstName, String lastName) {
-            this.id = id;
-            this.firstName = firstName;
-            this.lastName = lastName;
-        }
-
-        @Override
-        public String toString() {
-            return String.format(
-                    "Customer[id=%d, firstName='%s', lastName='%s']",
-                    id, firstName, lastName);
-        }
-
-        // getters & setters omitted for brevity
-    }
 
     public static void main(String args[]) {
         // simple DS for test (not for production!)
@@ -54,7 +35,7 @@ public class Application {
         }
 
         System.out.println("Querying for customer records where first_name = 'Josh':");
-        Collection<Customer> results = jdbcTemplate.query(
+        List<Customer> results = jdbcTemplate.query(
                 "select * from customers where first_name = ?", new Object[] { "Josh" },
                 new RowMapper<Customer>() {
                     @Override
@@ -64,7 +45,8 @@ public class Application {
                     }
                 });
 
-        for (Customer customer : results)
+        for (Customer customer : results) {
             System.out.println(customer);
+        }
     }
 }
