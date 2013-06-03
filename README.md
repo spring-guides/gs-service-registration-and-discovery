@@ -9,32 +9,154 @@ What you'll need
 ----------------
 
  - About 15 minutes
- - {!include#prereq-editor-jdk-buildtools}
+ - A favorite text editor or IDE
+ - [JDK 6][jdk] or better
+ - [Maven 3.0][mvn] or later
 
-## {!include#how-to-complete-this-guide}
+[jdk]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
+[mvn]: http://maven.apache.org/download.cgi
+
+How to complete this guide
+--------------------------
+
+Like all Spring's [Getting Started guides](/getting-started), you can start from scratch and complete each step, or you can bypass basic setup steps that are already familiar to you. Either way, you end up with working code.
+
+To **start from scratch**, move on to [Set up the project](#scratch).
+
+To **skip the basics**, do the following:
+
+ - [Download][zip] and unzip the source repository for this guide, or clone it using [git](/understanding/git):
+`git clone https://github.com/springframework-meta/{@project-name}.git`
+ - cd into `{@project-name}/initial`
+ - Jump ahead to [Create a resource representation class](#initial).
+
+**When you're finished**, you can check your results against the code in `{@project-name}/complete`.
 
 <a name="scratch"></a>
 Set up the project
 ------------------
 
-{!include#build-system-intro}
+First you set up a basic build script. You can use any build system you like when building apps with Spring, but the code you need to work with [Maven](https://maven.apache.org) and [Gradle](http://gradle.org) is included here. If you're not familiar with either, refer to our [Getting Started with Maven](../gs-maven/README.md) or [Getting Started with Gradle](../gs-gradle/README.md) guides.
 
-{!include#create-directory-structure-hello}
+### Create the directory structure
+
+In a project directory of your choosing, create the following subdirectory structure; for example, with `mkdir -p src/main/java/hello` on *nix systems:
+
+    └── src
+        └── main
+            └── java
+                └── hello
 
 ### Create a Maven POM
 
-{!include#maven-project-setup-options}
+> **ERROR:** Section 'maven-project-setup-options' not found
 
-    {!include:complete/pom.xml}
+`pom.xml`
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-{!include#bootstrap-starter-pom-disclaimer}
+    <groupId>org.springframework</groupId>
+    <artifactId>gs-relational-data-access-complete</artifactId>
+    <version>0.1.0</version>
+
+    <parent>
+        <groupId>org.springframework.bootstrap</groupId>
+        <artifactId>spring-bootstrap-starters</artifactId>
+        <version>0.5.0.BUILD-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <start-class>hello.Application</start-class>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>http://repo.springsource.org/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.springsource.org/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>http://repo.springsource.org/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
+```
+
+TODO: mention that we're using Spring Bootstrap's [_starter POMs_](../gs-bootstrap-starter) here.
+
+Note to experienced Maven users who are unaccustomed to using an external parent project: you can take it out later, it's just there to reduce the amount of code you have to write to get started.
 
 <a name="initial"></a>
 Create a Customer object
 --------------------------
 The simple data access logic you will work with below below manages first and last names of customers. To represent this data at the application level, create a `Customer` class.
 
-    {!include:complete/src/main/java/hello/Customer.java}
+`src/main/java/hello/Customer.java`
+```java
+package hello;
+
+public class Customer {
+    private long id;
+    private String firstName, lastName;
+
+    public Customer(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Customer[id=%d, firstName='%s', lastName='%s']",
+                id, firstName, lastName);
+    }
+
+    // getters & setters omitted for brevity
+}
+
+```
 
 
 Store and retrieve data
@@ -42,7 +164,61 @@ Store and retrieve data
 
 Spring provides a template class called `JdbcTemplate` that makes it easy to work with SQL relational databases and JDBC. Most JDBC code is mired in resource acquisition, connection management, exception handling, and general error checking that is wholly unrelated to what the code is meant to achieve. The `JdbcTemplate` takes care of all of that for you. All you have to do is focus on the task at hand.
 
-    {!include:complete/src/main/java/hello/Application.java}
+`src/main/java/hello/Application.java`
+```java
+package hello;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+
+public class Application {
+
+    public static void main(String args[]) {
+        // simple DS for test (not for production!)
+        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+        dataSource.setDriverClass(org.h2.Driver.class);
+        dataSource.setUsername("sa");
+        dataSource.setUrl("jdbc:h2:mem");
+        dataSource.setPassword("");
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+        System.out.println("Creating tables");
+        jdbcTemplate.execute("drop table customers if exists");
+        jdbcTemplate.execute("create table customers(" +
+                "id serial, first_name varchar(255), last_name varchar(255))");
+
+        String[] names = "John Woo;Jeff Dean;Josh Bloch;Josh Long".split(";");
+        for (String fullname : names) {
+            String[] name = fullname.split(" ");
+            System.out.printf("Inserting customer record for %s %s\n", name[0], name[1]);
+            jdbcTemplate.update(
+                    "INSERT INTO customers(first_name,last_name) values(?,?)",
+                    name[0], name[1]);
+        }
+
+        System.out.println("Querying for customer records where first_name = 'Josh':");
+        List<Customer> results = jdbcTemplate.query(
+                "select * from customers where first_name = ?", new Object[] { "Josh" },
+                new RowMapper<Customer>() {
+                    @Override
+                    public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return new Customer(rs.getLong("id"), rs.getString("first_name"),
+                                rs.getString("last_name"));
+                    }
+                });
+
+        for (Customer customer : results) {
+            System.out.println(customer);
+        }
+    }
+}
+```
 
 In this example you set up a JDBC [`DataSource`]() using Spring's handy `SimpleDriverDataSource`. Then, you use the `DataSource` to construct a `JdbcTemplate` instance. 
 
@@ -58,7 +234,37 @@ Then, you install some records in your newly created table using `JdbcTemplate`'
 
 Finally you use the `query` method to search your table for records matching the criteria. You again use the "`?`" arguments to create parameters for the query, passing in the actual values when you make the call. The last argument in the `query` method is an instance of `RowMapper<T>`, which you provide. Spring's done 90% of the work, but it can't know what you want it to do with the result set data. So, you provide a `RowMapper<T>` instance that Spring will call for each record, aggregate the results, and return as a collection. 
 
-## {!include#build-an-executable-jar}
+### Build an executable JAR
+
+Now that your `Application` class is ready, you simply instruct the build system to create a single, executable jar containing everything. This makes it easy to ship, version, and deploy the service as an application throughout the development lifecycle, across different environments, and so forth.
+
+Add the following configuration to your existing Maven POM:
+
+`pom.xml`
+```xml
+    <properties>
+        <start-class>hello.Application</start-class>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+```
+
+The `start-class` property tells Maven to create a `META-INF/MANIFEST.MF` file with a `Main-Class: hello.Application` entry. This entry enables you to run the jar with `java -jar`.
+
+The [Maven Shade plugin][maven-shade-plugin] extracts classes from all jars on the classpath and builds a single "über-jar", which makes it more convenient to execute and transport your service.
+
+Now run the following to produce a single executable JAR file containing all necessary dependency classes and resources:
+
+    mvn package
+
+[maven-shade-plugin]: https://maven.apache.org/plugins/maven-shade-plugin
 
 
 Run the application
