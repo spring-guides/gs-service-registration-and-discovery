@@ -23,8 +23,6 @@ Set up the project
 
 ### Create a Maven POM
 
-{!include#maven-project-setup-options}
-
     {!include:complete/pom.xml}
 
 {!include#bootstrap-starter-pom-disclaimer}
@@ -66,7 +64,7 @@ Run the application
 
 Run your application with `java -jar` at the command line:
 
-    java -jar target/gs-relational-data-access-0.1.0.jar
+    java -jar target/gs-relational-data-access-complete-0.1.0.jar
 
 
 You should see the following output:
@@ -84,3 +82,5 @@ You should see the following output:
 Summary
 -------
 Congrats! You've just used Spring to develop a simple JDBC client. There's more to building and working with JDBC and data stores in general than is covered here, but this should provide a good start.
+
+[zip]: https://github.com/springframework-meta/gs-relational-data-access/archive/master.zip

@@ -10,7 +10,7 @@ What you'll need
 
  - About 15 minutes
  - A favorite text editor or IDE
- - [JDK 6][jdk] or better
+ - [JDK 6][jdk] or later
  - [Maven 3.0][mvn] or later
 
 [jdk]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
@@ -36,7 +36,7 @@ To **skip the basics**, do the following:
 Set up the project
 ------------------
 
-First you set up a basic build script. You can use any build system you like when building apps with Spring, but the code you need to work with [Maven](https://maven.apache.org) and [Gradle](http://gradle.org) is included here. If you're not familiar with either, refer to our [Getting Started with Maven](../gs-maven/README.md) or [Getting Started with Gradle](../gs-gradle/README.md) guides.
+First you set up a basic build script. You can use any build system you like when building apps with Spring, but the code you need to work with [Maven](https://maven.apache.org) and [Gradle](http://gradle.org) is included here. If you're not familiar with either, refer to [Getting Started with Maven](../gs-maven/README.md) or [Getting Started with Gradle](../gs-gradle/README.md).
 
 ### Create the directory structure
 
@@ -48,8 +48,6 @@ In a project directory of your choosing, create the following subdirectory struc
                 └── hello
 
 ### Create a Maven POM
-
-> **ERROR:** Section 'maven-project-setup-options' not found
 
 `pom.xml`
 ```xml
@@ -125,7 +123,8 @@ In a project directory of your choosing, create the following subdirectory struc
 
 TODO: mention that we're using Spring Bootstrap's [_starter POMs_](../gs-bootstrap-starter) here.
 
-Note to experienced Maven users who are unaccustomed to using an external parent project: you can take it out later, it's just there to reduce the amount of code you have to write to get started.
+> Note to experienced Maven users who don't use an external parent project: You can take out the project later, it's just there to reduce the amount of code you have to write to get started.
+
 
 <a name="initial"></a>
 Create a Customer object
@@ -272,7 +271,7 @@ Run the application
 
 Run your application with `java -jar` at the command line:
 
-    java -jar target/gs-relational-data-access-0.1.0.jar
+    java -jar target/gs-relational-data-access-complete-0.1.0.jar
 
 
 You should see the following output:
@@ -290,3 +289,5 @@ You should see the following output:
 Summary
 -------
 Congrats! You've just used Spring to develop a simple JDBC client. There's more to building and working with JDBC and data stores in general than is covered here, but this should provide a good start.
+
+[zip]: https://github.com/springframework-meta/gs-relational-data-access/archive/master.zip
