@@ -2,10 +2,12 @@
 
 # Getting Started: Accessing Relational Data with Spring
 
+
 What you'll build
 -----------------
 
 This guide walks you through the process of accessing relational data with Spring.
+
 
 What you'll need
 ----------------
@@ -13,7 +15,9 @@ What you'll need
  - About 15 minutes
  - <@prereq_editor_jdk_buildtools/>
 
-## <@how_to_complete_this_guide/>
+
+## <@how_to_complete_this_guide jump_ahead='Create a Customer object'/>
+
 
 <a name="scratch"></a>
 Set up the project
@@ -29,16 +33,17 @@ Set up the project
 
 <@bootstrap_starter_pom_disclaimer/>
 
+
 <a name="initial"></a>
 Create a Customer object
---------------------------
+------------------------
 The simple data access logic you will work with below below manages first and last names of customers. To represent this data at the application level, create a `Customer` class.
 
     <@snippet path="src/main/java/hello/Customer.java" prefix="complete"/>
 
 
 Store and retrieve data
----------------------------
+-----------------------
 
 Spring provides a template class called `JdbcTemplate` that makes it easy to work with SQL relational databases and JDBC. Most JDBC code is mired in resource acquisition, connection management, exception handling, and general error checking that is wholly unrelated to what the code is meant to achieve. The `JdbcTemplate` takes care of all of that for you. All you have to do is focus on the task at hand.
 
@@ -67,7 +72,7 @@ Run the application
 Run your application with `java -jar` at the command line:
 
 ```sh
-$ java -jar target/gs-relational-data-access-complete-0.1.0.jar
+$ java -jar target/${project_id}-complete-0.1.0.jar
 ```
 
 
@@ -88,5 +93,3 @@ Customer[id=4, firstName='Josh', lastName='Long']
 Summary
 -------
 Congrats! You've just used Spring to develop a simple JDBC client. There's more to building and working with JDBC and data stores in general than is covered here, but this should provide a good start.
-
-[zip]: https://github.com/springframework-meta/gs-relational-data-access/archive/master.zip

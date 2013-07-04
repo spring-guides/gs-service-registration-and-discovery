@@ -1,9 +1,12 @@
+
 # Getting Started: Accessing Relational Data with Spring
+
 
 What you'll build
 -----------------
 
 This guide walks you through the process of accessing relational data with Spring.
+
 
 What you'll need
 ----------------
@@ -15,6 +18,7 @@ What you'll need
 
 [jdk]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [mvn]: http://maven.apache.org/download.cgi
+
 
 How to complete this guide
 --------------------------
@@ -28,9 +32,11 @@ To **skip the basics**, do the following:
  - [Download][zip] and unzip the source repository for this guide, or clone it using [git](/understanding/git):
 `git clone https://github.com/springframework-meta/gs-relational-data-access.git`
  - cd into `gs-relational-data-access/initial`
- - Jump ahead to [Create a resource representation class](#initial).
+ - Jump ahead to [Create a Customer object](#initial).
 
 **When you're finished**, you can check your results against the code in `gs-relational-data-access/complete`.
+[zip]: https://github.com/springframework-meta/gs-relational-data-access/archive/master.zip
+
 
 <a name="scratch"></a>
 Set up the project
@@ -125,9 +131,10 @@ TODO: mention that we're using Spring Bootstrap's [_starter POMs_](../gs-bootstr
 
 Note to experienced Maven users who are unaccustomed to using an external parent project: you can take it out later, it's just there to reduce the amount of code you have to write to get started.
 
+
 <a name="initial"></a>
 Create a Customer object
---------------------------
+------------------------
 The simple data access logic you will work with below below manages first and last names of customers. To represent this data at the application level, create a `Customer` class.
 
 `src/main/java/hello/Customer.java`
@@ -158,7 +165,7 @@ public class Customer {
 
 
 Store and retrieve data
----------------------------
+-----------------------
 
 Spring provides a template class called `JdbcTemplate` that makes it easy to work with SQL relational databases and JDBC. Most JDBC code is mired in resource acquisition, connection management, exception handling, and general error checking that is wholly unrelated to what the code is meant to achieve. The `JdbcTemplate` takes care of all of that for you. All you have to do is focus on the task at hand.
 
@@ -292,5 +299,3 @@ Customer[id=4, firstName='Josh', lastName='Long']
 Summary
 -------
 Congrats! You've just used Spring to develop a simple JDBC client. There's more to building and working with JDBC and data stores in general than is covered here, but this should provide a good start.
-
-[zip]: https://github.com/springframework-meta/gs-relational-data-access/archive/master.zip
