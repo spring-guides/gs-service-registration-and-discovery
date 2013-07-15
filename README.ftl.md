@@ -66,15 +66,7 @@ Finally you use the `query` method to search your table for records matching the
 ## <@build_an_executable_jar/>
 
 
-Run the application
--------------------
-
-Run your application with `java -jar` at the command line:
-
-```sh
-$ java -jar target/${project_id}-complete-0.1.0.jar
-```
-
+<@run_the_application/>
 
 You should see the following output:
 

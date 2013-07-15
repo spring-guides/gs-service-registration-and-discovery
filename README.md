@@ -274,12 +274,10 @@ Now run the following to produce a single executable JAR file containing all nec
 
 Run the application
 -------------------
-
 Run your application with `java -jar` at the command line:
 
-```sh
-$ java -jar target/gs-relational-data-access-complete-0.1.0.jar
-```
+    java -jar target/gs-relational-data-access-0.1.0.jar
+
 
 
 You should see the following output:
