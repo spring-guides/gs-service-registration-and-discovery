@@ -1,7 +1,4 @@
 
-# Getting Started: Accessing Relational Data with Spring
-
-
 What you'll build
 -----------------
 

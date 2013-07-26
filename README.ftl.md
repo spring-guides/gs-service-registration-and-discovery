@@ -1,8 +1,5 @@
 <#assign project_id="gs-relational-data-access">
 
-# Getting Started: Accessing Relational Data with Spring
-
-
 What you'll build
 -----------------
 
