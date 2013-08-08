@@ -8,9 +8,9 @@ There's more to data persistence than what is presented here. You may want to co
 * [Accessing Data with GemFire][gs-accessing-data-gemfire]
 * [Accessing Data with Neo4j][gs-accessing-data-neo4j]
 
-[gs-accessing-data-jpa]: /guides/gs/accessing-data-jpa/content
-[gs-accessing-data-gemfire]: /guides/gs/accessing-data-gemfire/content
-[gs-accessing-data-neo4j]: /guides/gs/accessing-data-neo4j/content
+[gs-accessing-data-jpa]: /guides/gs/accessing-data-jpa/
+[gs-accessing-data-gemfire]: /guides/gs/accessing-data-gemfire/
+[gs-accessing-data-neo4j]: /guides/gs/accessing-data-neo4j/
 
 ### Tutorials
 
