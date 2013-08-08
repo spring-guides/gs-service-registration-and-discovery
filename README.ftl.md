@@ -1,10 +1,10 @@
 <#assign project_id="gs-relational-data-access">
+This guide walks you through the process of accessing relational data with Spring.
 
 What you'll build
 -----------------
 
-This guide walks you through the process of accessing relational data with Spring.
-
+You'll build an application using Spring's `JdbcTemplate` to access data stored in a relational database.
 
 What you'll need
 ----------------

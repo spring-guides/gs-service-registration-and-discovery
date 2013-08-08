@@ -1,9 +1,9 @@
+This guide walks you through the process of accessing relational data with Spring.
 
 What you'll build
 -----------------
 
-This guide walks you through the process of accessing relational data with Spring.
-
+You'll build an application using Spring's `JdbcTemplate` to access data stored in a relational database.
 
 What you'll need
 ----------------
@@ -39,7 +39,7 @@ To **skip the basics**, do the following:
 Set up the project
 ------------------
 
-First you set up a basic build script. You can use any build system you like when building apps with Spring, but the code you need to work with [Maven](https://maven.apache.org) and [Gradle](http://gradle.org) is included here. If you're not familiar with either, refer to [Building Java Projects with Maven](/guides/gs/maven/) or [Building Java Projects with Gradle](/guides/gs/gradle/).
+First you set up a basic build script. You can use any build system you like when building apps with Spring, but the code you need to work with [Maven](https://maven.apache.org) and [Gradle](http://gradle.org) is included here. If you're not familiar with either, refer to [Building Java Projects with Maven](/guides/gs/maven) or [Building Java Projects with Gradle](/guides/gs/gradle/).
 
 ### Create the directory structure
 
