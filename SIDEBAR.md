@@ -23,5 +23,5 @@ There's more to data persistence than what is presented here. You may want to co
 * [REST][u-rest]
 * [JSON][u-json]
 
-<@u_rest/>
-<@u_json/>
+[u-rest]: /understanding/REST
+[u-json]: /understanding/JSON
