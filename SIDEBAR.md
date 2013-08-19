@@ -1,6 +1,6 @@
-### Related Resources
+## Related resources
 
-There's more to data persistence than what is presented here. You may want to continue your exploration of data access using Spring with the following
+There's more to working with persistence and data stores than what is covered here. You can continue to explore data access and Spring with the following resources.
 
 ### Getting Started guides
 
