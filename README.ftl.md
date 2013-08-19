@@ -59,8 +59,8 @@ Then, you install some records in your newly created table using `JdbcTemplate`'
 > **Note:** Using `?` for arguments avoids [SQL injection attacks](http://en.wikipedia.org/wiki/SQL_injection) by instructing JDBC to bind variables.
 
 Finally you use the `query` method to search your table for records matching the criteria. You again use the "`?`" arguments to create parameters for the query, passing in the actual values when you make the call. The last argument in the `query` method is an instance of `RowMapper<T>`, which you provide. Spring's done 90% of the work, but it can't know what you want it to do with the result set data. So, you provide a `RowMapper<T>` instance that Spring will call for each record, aggregate the results, and return as a collection. 
-
-## <@build_an_executable_jar_with_gradle/>
+<@build_an_executable_jar_mainhead/>
+<@build_an_executable_jar_with_gradle/>
 
 
 <@run_the_application_with_gradle/>
@@ -81,4 +81,4 @@ Customer[id=4, firstName='Josh', lastName='Long']
 
 Summary
 -------
-Congrats! You've just used Spring to develop a simple JDBC client. There's more to building and working with JDBC and data stores in general than is covered here, but this should provide a good start.
+Congratulations! You've just used Spring to develop a simple JDBC client.
