@@ -24,9 +24,8 @@ Set up the project
 
 <@create_directory_structure_hello/>
 
-### Create a Gradle build file
 
-    <@snippet path="build.gradle" prefix="initial"/>
+<@create_both_builds/>
 
 <@bootstrap_starter_pom_disclaimer/>
 
@@ -60,10 +59,10 @@ Then, you install some records in your newly created table using `JdbcTemplate`'
 
 Finally you use the `query` method to search your table for records matching the criteria. You again use the "`?`" arguments to create parameters for the query, passing in the actual values when you make the call. The last argument in the `query` method is an instance of `RowMapper<T>`, which you provide. Spring's done 90% of the work, but it can't know what you want it to do with the result set data. So, you provide a `RowMapper<T>` instance that Spring will call for each record, aggregate the results, and return as a collection. 
 <@build_an_executable_jar_mainhead/>
-<@build_an_executable_jar_with_gradle/>
+<@build_an_executable_jar_with_both/>
 
 
-<@run_the_application_with_gradle/>
+<@run_the_application_with_both/>
 
 You should see the following output:
 
