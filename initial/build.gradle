@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework:spring-jdbc:4.0.0.M2")
+    compile("org.springframework:spring-jdbc:4.0.0.M3")
     compile("com.h2database:h2:1.3.172")
     testCompile("junit:junit:4.11")
 }
