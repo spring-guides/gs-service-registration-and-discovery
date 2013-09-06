@@ -15,10 +15,12 @@ There's more to working with persistence and data stores than what is covered he
 ### Tutorials
 
 * [Designing and Implementing RESTful Web Services with Spring][tut-rest]
+* [Designing and Implementing a Web Site with Spring][tut-web]
 * [Persisting Data with Spring][tut-data]
 
 [tut-data]: /guides/tutorials/data/
 [tut-rest]: /guides/tutorials/rest
+[tut-web]: /guides/tutorials/web
 
 ### Concepts and technologies
 
