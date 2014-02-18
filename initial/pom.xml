@@ -28,11 +28,19 @@
         </dependency>
     </dependencies>
 
+    <properties>
+        <start-class>hello.Application</start-class>
+    </properties>
+
     <build>
         <plugins>
+            <plugin> 
+                <artifactId>maven-compiler-plugin</artifactId> 
+                <version>2.3.2</version> 
+            </plugin>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
@@ -44,6 +52,14 @@
             <url>http://repo.spring.io/libs-snapshot</url>
             <snapshots>
                 <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
     </repositories>
