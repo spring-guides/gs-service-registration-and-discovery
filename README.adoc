@@ -51,13 +51,18 @@ Spring provides a template class called `JdbcTemplate` that makes it easy to wor
 include::complete/src/main/java/hello/Application.java[]
 ----
 
-In this example you set up a JDBC {DataSource}[`DataSource`] using Spring's handy `SimpleDriverDataSource`. Then, you use the `DataSource` to construct a `JdbcTemplate` instance. 
+`@SpringBootApplication` is a convenience annotation that adds all of the following:
+    
+- `@Configuration` tags the class as a source of bean definitions for the application context.
+- `@EnableAutoConfiguration` tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings.
+- Normally you would add `@EnableWebMvc` for a Spring MVC app, but Spring Boot adds it automatically when it sees **spring-webmvc** on the classpath. This flags the application as a web application and activates key behaviors such as setting up a `DispatcherServlet`.
+- `@ComponentScan` tells Spring to look for other components, configurations, and services in the the `hello` package. In this case, there aren't any.
 
-NOTE: `SimpleDriverDataSource` is a convenience class and **not** intended for production.
+The `main()` method uses Spring Boot's `SpringApplication.run()` method to launch an application. Did you notice that there wasn't a single line of XML? No **web.xml** file either. This web application is 100% pure Java and you didn't have to deal with configuring any plumbing or infrastructure.
 
-After you configure `JdbcTemplate`, it's easy to start making calls to the database. 
+Spring Boot spots *H2*, an in-memory relational database engine, and automatically creates a connection. Because we are using *spring-jdbc*, Spring Boot automatically creates a `JdbcTemplate`. OUr `@Autowired JdbcTemplate` field will cause an instance to automatically get loaded and made available to us.
 
-First, you install some DDL using `JdbcTemplate`'s `execute` method.
+This `Application` class implements Spring Boot's `CommandLineRunner`, which means it will execute the `run()` method after the application context is loaded up. First, you install some DDL using `JdbcTemplate`'s `execute` method.
 
 Then, you install some records in your newly created table using `JdbcTemplate`'s `update` method. The first argument to the method call is the query string, the last argument (the array of `Object` s) holds the variables to be substituted into the query where the "`?`" characters are.
 
