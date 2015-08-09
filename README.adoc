@@ -73,7 +73,7 @@ NOTE: Use `?` for arguments to avoid http://en.wikipedia.org/wiki/SQL_injection[
 
 Finally you use the `query` method to search your table for records matching the criteria. You again use the "`?`" arguments to create parameters for the query, passing in the actual values when you make the call. The last argument is a Java 8 lambda used to convert each result row into a new `Customer` object.
 
-NOTE: Java 8 lambdas map nicely onto single method interfaces, like Spring's `RowMapper`. If you are using Java 7 or earlier, you can easily plug in an anonymous interface implementation and have the same method body as the lambda expresion's body contains, and it will work with nof uss from Spring.
+NOTE: Java 8 lambdas map nicely onto single method interfaces, like Spring's `RowMapper`. If you are using Java 7 or earlier, you can easily plug in an anonymous interface implementation and have the same method body as the lambda expresion's body contains, and it will work with no fuss from Spring.
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_mainhead.adoc[]
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_with_both.adoc[]
