@@ -1,20 +1,21 @@
 ---
-tags: [spring-data, jdbc]
-projects: [spring-framework]
+tags: [spring-cloud, eureka]
+projects: [spring-cloud]
 ---
-:spring_boot_version: 1.3.1.RELEASE
+:spring_boot_version: 1.2.8.RELEASE
 :DataSource:
 :toc:
 :icons: font
 :source-highlighter: prettify
-:project_id: gs-relational-data-access
-This guide walks you through the process of accessing relational data with Spring.
+:project_id: gs-service-registration-and-discovery
+This guide walks you through the process of standing up and consuming the Netflix Eureka service registry.
 
 == What you'll build
 
 
-You'll setup a https://github.com/spring-cloud/spring-cloud-netflix[Netflix Eureka service registry] 
-and then build a client that both registers itself with the registry and uses it to resolve its own host.
+You'll setup a https://github.com/spring-cloud/spring-cloud-netflix[Netflix Eureka service registry]
+and then build a client that both registers itself with the registry and uses it to resolve its own host. A service registry
+is useful because it enables client-side load-balancing and decouples service providers from consumers without the need for DNS.
 
 == What you'll need
 
@@ -36,10 +37,10 @@ You'll first need a Eureka Service registry. You can use Spring Cloud's `@Enable
 to standup a registry that other applications can talk to. This is a regular Spring Boot application with
 one annotation added to _enable_ the service registry.
 
-`src/main/java/hello/EurekaServiceApplication.java`
+`eureka-service/src/main/java/hello/EurekaServiceApplication.java`
 [source,java]
 ----
-include::complete/eureka-service-registry/src/main/java/hello/EurekaServiceApplication.java[]
+include::complete/eureka-service/src/main/java/hello/EurekaServiceApplication.java[]
 ----
 
 When the registry starts up it will complain, with a stacktrace, that there are no
@@ -49,71 +50,36 @@ disable the relevant logging.
 
 By default, the registry will _also_ attempt to register itself, so you'll need to disable that, as well.
 
-Add some properties to your `complete/eureka-service-registry/src/main/resources/application.properties` to effect both changes:
+It's a good convention to put this registry on a separate port when using it locally.
 
-`src/main/resources/application.properties`
+Add some properties to your `eureka-service/src/main/resources/application.properties` to handle all of these requirements.
+
+`eureka-service/src/main/resources/application.properties`
 [source,properties]
 ----
-include::complete/eureka-service-registry/src/main/resources/application.properties[]
+include::complete/eureka-service/src/main/resources/application.properties[]
 ----
 
 
 == Talking to the Registry
 
 Now that we've stood up a service registry, let's stand up a client that both registers itself with the registry and
-uses the Spring Cloud `DiscoveryClient` abstraction to interrogate the registry for it's own host and port.
+uses the Spring Cloud `DiscoveryClient` abstraction to interrogate the registry for it's own host and port. The `@EnableDiscoveryClient`
+annotation configures whatever `DiscoveryClient` implementation is on the classpath and makes a `DiscoveryClient` implementation available
+for use.
 
-`src/main/java/hello/Application.java`
+`eureka-client/src/main/java/hello/EurekaClientApplication.java`
 [source,java]
 ----
-include::complete/src/main/java/hello/Application.java[]
+include::complete/eureka-client/src/main/java/hello/EurekaClientApplication.java[]
 ----
 
-`@SpringBootApplication` is a convenience annotation that adds all of the following:
-
-- `@Configuration` tags the class as a source of bean definitions for the application context.
-- `@EnableAutoConfiguration` tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings.
-- `@ComponentScan` tells Spring to look for other components, configurations, and services in the the `hello` package. In this case, there aren't any.
-
-The `main()` method uses Spring Boot's `SpringApplication.run()` method to launch an application. Did you notice that there wasn't a single line of XML? No **web.xml** file either. This web application is 100% pure Java and you didn't have to deal with configuring any plumbing or infrastructure.
-
-Spring Boot spots *H2*, an in-memory relational database engine, and automatically creates a connection. Because we are using *spring-jdbc*, Spring Boot automatically creates a `JdbcTemplate`. The `@Autowired JdbcTemplate` field automatically loads it and makes it available.
-
-This `Application` class implements Spring Boot's `CommandLineRunner`, which means it will execute the `run()` method after the application context is loaded up.
-
-First, you install some DDL using `JdbcTemplate`'s `execute` method.
-
-Second, you take a list of strings and using Java 8 streams, split them into firstname/lastname pairs in a Java array.
-
-Then you install some records in your newly created table using `JdbcTemplate`'s `batchUpdate` method. The first argument to the method call is the query string, the last argument (the array of `Object` s) holds the variables to be substituted into the query where the "`?`" characters are.
-
-NOTE: For single insert statements, `JdbcTemplate`'s `insert` method is good. But for multiple inserts, it's better to use `batchUpdate`.
-
-NOTE: Use `?` for arguments to avoid http://en.wikipedia.org/wiki/SQL_injection[SQL injection attacks] by instructing JDBC to bind variables.
-
-Finally you use the `query` method to search your table for records matching the criteria. You again use the "`?`" arguments to create parameters for the query, passing in the actual values when you make the call. The last argument is a Java 8 lambda used to convert each result row into a new `Customer` object.
-
-NOTE: Java 8 lambdas map nicely onto single method interfaces, like Spring's `RowMapper`. If you are using Java 7 or earlier, you can easily plug in an anonymous interface implementation and have the same method body as the lambda expresion's body contains, and it will work with no fuss from Spring.
-
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_mainhead.adoc[]
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_with_both.adoc[]
-
-You should see the following output:
-
-....
-2015-06-19 10:58:31.152  INFO 67731 --- [           main] hello.Application                        : Creating tables
-2015-06-19 10:58:31.219  INFO 67731 --- [           main] hello.Application                        : Inserting customer record for John Woo
-2015-06-19 10:58:31.220  INFO 67731 --- [           main] hello.Application                        : Inserting customer record for Jeff Dean
-2015-06-19 10:58:31.220  INFO 67731 --- [           main] hello.Application                        : Inserting customer record for Josh Bloch
-2015-06-19 10:58:31.220  INFO 67731 --- [           main] hello.Application                        : Inserting customer record for Josh Long
-2015-06-19 10:58:31.230  INFO 67731 --- [           main] hello.Application                        : Querying for customer records where first_name = 'Josh':
-2015-06-19 10:58:31.242  INFO 67731 --- [           main] hello.Application                        : Customer[id=3, firstName='Josh', lastName='Bloch']
-2015-06-19 10:58:31.242  INFO 67731 --- [           main] hello.Application                        : Customer[id=4, firstName='Josh', lastName='Long']
-2015-06-19 10:58:31.244  INFO 67731 --- [           main] hello.Application                        : Started Application in 1.693 seconds (JVM running for 2.054)
-....
+The Eureka implementation registers the current application using whatever name specified by the `spring.application.name` property.
+This property is used a lot in Spring Cloud, often in the earliest phases of a service's configuration. By convention, put this
+property in a file called `eureka-client/src/main/resources/bootstrap.properties` where it'll be found before `src/main/resources/application.properties`.
 
 
 == Summary
-Congratulations! You've just used Spring to develop a simple JDBC client.
+Congratulations! You've just used Spring to stand up a Netflix Eureka service registry and to use that registry in a client application.
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
