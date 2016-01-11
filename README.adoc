@@ -8,13 +8,12 @@ projects: [spring-cloud]
 :icons: font
 :source-highlighter: prettify
 :project_id: gs-service-registration-and-discovery
+
 This guide walks you through the process of standing up and consuming the Netflix Eureka service registry.om
 
 == What you'll build
 
-You'll setup a https://github.com/spring-cloud/spring-cloud-netflix[Netflix Eureka service registry]
-and then build a client that both registers itself with the registry and uses it to resolve its own host. A service registry
-is useful because it enables client-side load-balancing and decouples service providers from consumers without the need for DNS.
+You'll setup a https://github.com/spring-cloud/spring-cloud-netflix[Netflix Eureka service registry] and then build a client that both registers itself with the registry and uses it to resolve its own host. A service registry is useful because it enables client-side load-balancing and decouples service providers from consumers without the need for DNS.
 
 == What you'll need
 
@@ -32,9 +31,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 [[initial]]
 == Stand up a Eureka Service Registry
-You'll first need a Eureka Service registry. You can use Spring Cloud's `@EnableEurekaServer`
-to standup a registry that other applications can talk to. This is a regular Spring Boot application with
-one annotation added to _enable_ the service registry.
+You'll first need a Eureka Service registry. You can use Spring Cloud's `@EnableEurekaServer` to standup a registry that other applications can talk to. This is a regular Spring Boot application with one annotation added to _enable_ the service registry.
 
 `eureka-service/src/main/java/hello/EurekaServiceApplication.java`
 [source,java]
@@ -42,10 +39,7 @@ one annotation added to _enable_ the service registry.
 include::complete/eureka-service/src/main/java/hello/EurekaServiceApplication.java[]
 ----
 
-When the registry starts up it will complain, with a stacktrace, that there are no
-replica nodes for the registry to connect to. In a production environment, you will want
-more than one instance of the registry. For our simple purposes, however, it sufficies to
-disable the relevant logging.
+When the registry starts up it will complain, with a stacktrace, that there are no replica nodes for the registry to connect to. In a production environment, you will want more than one instance of the registry. For our simple purposes, however, it sufficies to disable the relevant logging.
 
 By default, the registry will _also_ attempt to register itself, so you'll need to disable that, as well.
 
@@ -62,10 +56,7 @@ include::complete/eureka-service/src/main/resources/application.properties[]
 
 == Talking to the Registry
 
-Now that we've stood up a service registry, let's stand up a client that both registers itself with the registry and
-uses the Spring Cloud `DiscoveryClient` abstraction to interrogate the registry for it's own host and port. The `@EnableDiscoveryClient`
-annotation configures whatever `DiscoveryClient` implementation is on the classpath and makes a `DiscoveryClient` implementation available
-for use.
+Now that we've stood up a service registry, let's stand up a client that both registers itself with the registry and uses the Spring Cloud `DiscoveryClient` abstraction to interrogate the registry for it's own host and port. The `@EnableDiscoveryClient` activates the Netflix Eureka `DiscoveryClient` implementation. There are other implementations for other service registries like https://www.consul.io/[Hashicorp's Consul] or https://zookeeper.apache.org/[Apache Zookeeper].
 
 `eureka-client/src/main/java/hello/EurekaClientApplication.java`
 [source,java]
@@ -73,9 +64,19 @@ for use.
 include::complete/eureka-client/src/main/java/hello/EurekaClientApplication.java[]
 ----
 
-The Eureka implementation registers the current application using whatever name specified by the `spring.application.name` property.
-This property is used a lot in Spring Cloud, often in the earliest phases of a service's configuration. By convention, put this
-property in a file called `eureka-client/src/main/resources/bootstrap.properties` where it'll be found before `src/main/resources/application.properties`.
+Whatever implementation you choose, you'll soon see the `eureka-client` registered under whatever name you specify in the `spring.application.name` property. This property is used a lot in Spring Cloud, often in the earliest phases of a service's configuration. This property is used in service bootstrap and so by convention lives in `eureka-client/src/main/resources/bootstrap.properties`  where it's found _before_ `src/main/resources/application.properties`.
+
+`eureka-client/src/main/resources/bootstrap.properties`
+[source,properties]
+----
+include::complete/eureka-client/src/main/resources/bootstrap.properties[]
+----
+
+The `eureka-client` defines a Spring MVC REST endpoint, `ServiceInstanceRestController`, that returns an enumeration of all the `ServiceInstance` instances registered in the registry at  `http://localhost:8080/service-instances/a-bootiful-client`. Consult the https://spring.io/guides/gs/rest-service/[Building a RESTful Web Service]  guide to learn more about building REST services with Spring MVC and Spring Boot.
+
+== Test the application
+
+Test the end-to-end result by starting the `eureka-service` first and then, once it's loaded, starting the `eureka-client`. The `eureka-client` will take about a minute to register itself in the registry and to refresh its own list of registered instances from the registry. All of these thresholds are configurable. Visit the `eureka-client` in the browser, `http://localhost:8080/service-instances/a-bootiful-client`. There, you should see the `ServiceInstance` for the `eureka-client` reflected in the results.
 
 
 == Summary
