@@ -76,7 +76,7 @@ The `eureka-client` defines a Spring MVC REST endpoint, `ServiceInstanceRestCont
 
 == Test the application
 
-Test the end-to-end result by starting the `eureka-service` first and then, once it's loaded, starting the `eureka-client`. The `eureka-client` will take about a minute to register itself in the registry and to refresh its own list of registered instances from the registry. All of these thresholds are configurable. Visit the `eureka-client` in the browser, `http://localhost:8080/service-instances/a-bootiful-client`. There, you should see the `ServiceInstance` for the `eureka-client` reflected in the results.
+Test the end-to-end result by starting the `eureka-service` first and then, once loaded, starting the `eureka-client`. The `eureka-client` will take about a minute to register itself in the registry and to refresh its own list of registered instances from the registry. All of these thresholds are configurable. Visit the `eureka-client` in the browser, `http://localhost:8080/service-instances/a-bootiful-client`. There, you should see the `ServiceInstance` for the `eureka-client` reflected in the response.
 
 
 == Summary
