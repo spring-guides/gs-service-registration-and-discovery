@@ -8,10 +8,9 @@ projects: [spring-cloud]
 :icons: font
 :source-highlighter: prettify
 :project_id: gs-service-registration-and-discovery
-This guide walks you through the process of standing up and consuming the Netflix Eureka service registry.
+This guide walks you through the process of standing up and consuming the Netflix Eureka service registry.om
 
 == What you'll build
-
 
 You'll setup a https://github.com/spring-cloud/spring-cloud-netflix[Netflix Eureka service registry]
 and then build a client that both registers itself with the registry and uses it to resolve its own host. A service registry
