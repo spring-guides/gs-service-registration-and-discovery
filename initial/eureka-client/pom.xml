@@ -4,11 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>eureka-service</artifactId>
+	<artifactId>eureka-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
-	<name>eureka-service</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
