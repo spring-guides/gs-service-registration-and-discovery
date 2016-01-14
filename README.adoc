@@ -22,9 +22,61 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/hide-show-gradle.adoc[]
+[[reveal-gradle]]
+[.reveal-gradle]
+== Build with Gradle
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/hide-show-maven.adoc[]
+[[scratch]]
+[.use-gradle]
+== Build with Gradle
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_system_intro.adoc[]
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/create_directory_structure_hello.adoc[]
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/create_both_builds.adoc[]
+
+`eureka-service/build.gradle`
+// AsciiDoc source formatting doesn't support groovy, so using java instead
+[source,java]
+----
+include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/eureka-service/build.gradle[]
+----
+
+`eureka-client/build.gradle`
+// AsciiDoc source formatting doesn't support groovy, so using java instead
+[source,java]
+----
+include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/eureka-client/build.gradle[]
+----
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-gradle-plugin.adoc[]
+
+[[reveal-maven]]
+[.reveal-maven]
+== Build with Maven
+
+[[use-maven]]
+[.use-maven]
+== Build with Maven
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_system_intro_maven.adoc[]
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/create_directory_structure_hello.adoc[]
+
+`eureka-service/pom.xml`
+[source,xml]
+----
+include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/eureka-service/pom.xml[]
+----
+
+`eureka-client/pom.xml`
+[source,xml]
+----
+include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/eureka-client/pom.xml[]
+----
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-maven-plugin.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/hide-show-sts.adoc[]
 
