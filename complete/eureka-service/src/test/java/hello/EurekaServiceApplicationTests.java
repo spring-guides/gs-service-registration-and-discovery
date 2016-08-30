@@ -23,7 +23,7 @@ public class EurekaServiceApplicationTests {
     private TestRestTemplate testRestTemplate;
 
     @Test
-    public void should_start_eureka_server() {
+    public void shouldStartEurekaServer() {
         ResponseEntity<String> entity = this.testRestTemplate.getForEntity(
                 "http://localhost:" + this.port + "/eureka/apps", String.class);
 
