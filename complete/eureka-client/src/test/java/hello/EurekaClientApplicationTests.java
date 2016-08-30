@@ -49,7 +49,7 @@ public class EurekaClientApplicationTests {
     private TestRestTemplate testRestTemplate;
 
     @Test
-    public void should_register_client_in_eureka_server() throws InterruptedException {
+    public void shouldRegisterClientInEurekaServer() throws InterruptedException {
         // registration has to take place...
         Thread.sleep(3000);
 
