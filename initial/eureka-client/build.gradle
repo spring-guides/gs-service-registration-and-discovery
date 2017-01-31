@@ -28,7 +28,7 @@ repositories {
 
 dependencyManagement {
 	imports {
-		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Brixton.SR5'
+		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.SR4'
 	}
 }
 
