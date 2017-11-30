@@ -29,7 +29,7 @@ repositories {
 
 dependencyManagement {
 	imports {
-		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.SR5'
+		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Edgware.RELEASE'
 	}
 }
 
