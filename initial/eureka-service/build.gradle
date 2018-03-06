@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.10.RELEASE'
+		springBootVersion = '2.0.0.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -14,8 +14,9 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
-jar {
+bootJar {
 	baseName = 'eureka-service'
 	version = '0.0.1-SNAPSHOT'
 }
@@ -29,12 +30,18 @@ repositories {
 
 dependencyManagement {
 	imports {
-		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Edgware.SR2'
+		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.M8'
 	}
 }
 
+repositories {
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
+}
+
 dependencies {
-	compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
