@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.2.RELEASE'
+		springBootVersion = '2.0.3.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -29,7 +29,7 @@ repositories {
 
 dependencyManagement {
 	imports {
-		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.RC1'
+		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.RELEASE'
 	}
 }
 
