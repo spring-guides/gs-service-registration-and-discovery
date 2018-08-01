@@ -11,6 +11,7 @@
     <modules>
         <module>eureka-client</module>
         <module>eureka-service</module>
+        <module>product-catalog-service</module>
     </modules>
 
 </project>
