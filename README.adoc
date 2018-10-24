@@ -3,7 +3,7 @@
 :source-highlighter: prettify
 :project_id: gs-service-registration-and-discovery
 
-This guide walks you through the process of standing up and consuming the Netflix Eureka service registry.om
+This guide walks you through the process of standing up and consuming the Netflix Eureka service registry.
 
 == What you'll build
 
