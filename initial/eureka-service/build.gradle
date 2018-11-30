@@ -34,12 +34,6 @@ dependencyManagement {
 	}
 }
 
-repositories {
-    maven {
-        url 'https://repo.spring.io/libs-milestone'
-    }
-}
-
 dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
 	testCompile('org.springframework.boot:spring-boot-starter-test')

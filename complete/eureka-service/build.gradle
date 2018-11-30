@@ -39,16 +39,6 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
-repositories {
-	maven { url 'https://repo.spring.io/libs-snapshot' }
-}
-
-repositories {
-    maven {
-        url 'https://repo.spring.io/libs-milestone'
-    }
-}
-
 eclipse {
 	classpath {
 		 containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
