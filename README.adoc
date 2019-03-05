@@ -3,7 +3,7 @@
 :source-highlighter: prettify
 :project_id: gs-service-registration-and-discovery
 
-This guide walks you through the process of standing up and consuming the Netflix Eureka service registry.om
+This guide walks you through the process of standing up and consuming the Netflix Eureka service registry.
 
 == What you'll build
 
@@ -77,7 +77,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 [[initial]]
 == Stand up a Eureka Service Registry
-You'll first need a Eureka Service registry. You can use Spring Cloud's `@EnableEurekaServer` to standup a registry that other applications can talk to. This is a regular Spring Boot application with one annotation added to _enable_ the service registry.
+You'll first need a Eureka Service registry. You can use Spring Cloud's `@EnableEurekaServer` to stand up a registry that other applications can talk to. This is a regular Spring Boot application with one annotation added to _enable_ the service registry.
 
 `eureka-service/src/main/java/hello/EurekaServiceApplication.java`
 [source,java]
