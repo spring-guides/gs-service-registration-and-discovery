@@ -128,4 +128,12 @@ Test the end-to-end result by starting the `eureka-service` first and then, once
 == Summary
 Congratulations! You've just used Spring to stand up a Netflix Eureka service registry and to use that registry in a client application.
 
+== See Also
+
+The following guides may also be helpful:
+
+* https://spring.io/guides/gs/rest-service/[Building a RESTful Web Service]
+* https://spring.io/guides/gs/serving-web-content/[Serving Web Content with Spring MVC]
+* https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot]
+
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
