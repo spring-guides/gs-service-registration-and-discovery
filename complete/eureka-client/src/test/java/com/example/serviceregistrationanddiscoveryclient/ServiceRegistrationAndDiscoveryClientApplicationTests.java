@@ -1,4 +1,4 @@
-package hello;
+package com.example.serviceregistrationanddiscoveryclient;
 
 import static org.assertj.core.api.BDDAssertions.*;
 
@@ -24,9 +24,9 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author Marcin Grzejszczak
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = EurekaClientApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = com.example.serviceregistrationanddiscoveryclient.ServiceRegistrationAndDiscoveryClientApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class EurekaClientApplicationTests {
+public class ServiceRegistrationAndDiscoveryClientApplicationTests {
 
 	static ConfigurableApplicationContext eurekaServer;
 
