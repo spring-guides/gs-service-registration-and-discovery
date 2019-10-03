@@ -1,4 +1,4 @@
-package hello;
+package com.example.serviceregistrationanddiscoveryclient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -14,10 +14,10 @@ import java.util.List;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class EurekaClientApplication {
+public class ServiceRegistrationAndDiscoveryClientApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EurekaClientApplication.class, args);
+		SpringApplication.run(ServiceRegistrationAndDiscoveryClientApplication.class, args);
 	}
 }
 

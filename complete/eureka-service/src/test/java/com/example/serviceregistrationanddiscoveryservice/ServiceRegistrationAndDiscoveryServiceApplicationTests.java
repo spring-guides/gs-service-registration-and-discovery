@@ -1,4 +1,4 @@
-package hello;
+package com.example.serviceregistrationanddiscoveryservice;
 
 import static org.assertj.core.api.BDDAssertions.*;
 
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class EurekaServiceApplicationTests {
+public class ServiceRegistrationAndDiscoveryServiceApplicationTests {
 
 	@LocalServerPort
 	private int port;
