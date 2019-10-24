@@ -2,10 +2,10 @@ package com.example.serviceregistrationanddiscoveryclient;
 
 import static org.assertj.core.api.BDDAssertions.*;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -18,26 +18,24 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author Marcin Grzejszczak
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.example.serviceregistrationanddiscoveryclient.ServiceRegistrationAndDiscoveryClientApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class ServiceRegistrationAndDiscoveryClientApplicationTests {
 
 	static ConfigurableApplicationContext eurekaServer;
 
-	@BeforeClass
+	@BeforeAll
 	public static void startEureka() {
 		eurekaServer = SpringApplication.run(EurekaServer.class,
 				"--server.port=8761",
 				"--eureka.instance.leaseRenewalIntervalInSeconds=1");
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void closeEureka() {
 		eurekaServer.close();
 	}
