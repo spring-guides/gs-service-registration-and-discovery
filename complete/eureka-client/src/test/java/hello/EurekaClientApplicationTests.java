@@ -28,40 +28,40 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("test")
 public class EurekaClientApplicationTests {
 
-    static ConfigurableApplicationContext eurekaServer;
+	static ConfigurableApplicationContext eurekaServer;
 
-    @BeforeClass
-    public static void startEureka() {
-        eurekaServer = SpringApplication.run(EurekaServer.class,
-                "--server.port=8761",
-                "--eureka.instance.leaseRenewalIntervalInSeconds=1");
-    }
+	@BeforeClass
+	public static void startEureka() {
+		eurekaServer = SpringApplication.run(EurekaServer.class,
+				"--server.port=8761",
+				"--eureka.instance.leaseRenewalIntervalInSeconds=1");
+	}
 
-    @AfterClass
-    public static void closeEureka() {
-        eurekaServer.close();
-    }
+	@AfterClass
+	public static void closeEureka() {
+		eurekaServer.close();
+	}
 
-    @LocalServerPort
-    private int port;
+	@LocalServerPort
+	private int port;
 
-    @Autowired
-    private TestRestTemplate testRestTemplate;
+	@Autowired
+	private TestRestTemplate testRestTemplate;
 
-    @Test
-    public void shouldRegisterClientInEurekaServer() throws InterruptedException {
-        // registration has to take place...
-        Thread.sleep(3000);
+	@Test
+	public void shouldRegisterClientInEurekaServer() throws InterruptedException {
+		// registration has to take place...
+		Thread.sleep(3000);
 
-        ResponseEntity<String> response = this.testRestTemplate.getForEntity("http://localhost:" + this.port + "/service-instances/a-bootiful-client", String.class);
+		ResponseEntity<String> response = this.testRestTemplate.getForEntity("http://localhost:" + this.port + "/service-instances/a-bootiful-client", String.class);
 
-        then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(response.getBody()).contains("a-bootiful-client");
-    }
+		then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+		then(response.getBody()).contains("a-bootiful-client");
+	}
 
-    @Configuration
-    @EnableAutoConfiguration
-    @EnableEurekaServer
-    static class EurekaServer {
-    }
+	@Configuration
+	@EnableAutoConfiguration
+	@EnableEurekaServer
+	static class EurekaServer {
+	}
 }

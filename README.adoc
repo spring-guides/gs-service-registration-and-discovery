@@ -32,14 +32,14 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 `eureka-service/build.gradle`
 // AsciiDoc source formatting doesn't support groovy, so using java instead
-[source,java]
+[source,java,tabsize=2]
 ----
 include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/eureka-service/build.gradle[]
 ----
 
 `eureka-client/build.gradle`
 // AsciiDoc source formatting doesn't support groovy, so using java instead
-[source,java]
+[source,java,tabsize=2]
 ----
 include::https://raw.githubusercontent.com/spring-guides/{project_id}/master/initial/eureka-client/build.gradle[]
 ----
@@ -80,7 +80,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 You'll first need a Eureka Service registry. You can use Spring Cloud's `@EnableEurekaServer` to stand up a registry that other applications can talk to. This is a regular Spring Boot application with one annotation added to _enable_ the service registry.
 
 `eureka-service/src/main/java/hello/EurekaServiceApplication.java`
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/eureka-service/src/main/java/hello/EurekaServiceApplication.java[]
 ----
@@ -105,7 +105,7 @@ include::complete/eureka-service/src/main/resources/application.properties[]
 Now that we've stood up a service registry, let's stand up a client that both registers itself with the registry and uses the Spring Cloud `DiscoveryClient` abstraction to interrogate the registry for it's own host and port. The `@EnableDiscoveryClient` activates the Netflix Eureka `DiscoveryClient` implementation. There are other implementations for other service registries like https://www.consul.io/[Hashicorp's Consul] or https://zookeeper.apache.org/[Apache Zookeeper].
 
 `eureka-client/src/main/java/hello/EurekaClientApplication.java`
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/eureka-client/src/main/java/hello/EurekaClientApplication.java[]
 ----
