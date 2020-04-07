@@ -157,7 +157,7 @@ a lot in Spring Cloud, often in the earliest phases of a service's configuration
 property is used in service bootstrap and, so, by convention lives in
 `eureka-client/src/main/resources/bootstrap.properties` where it is found before
 `src/main/resources/application.properties`. The following listing shows the
-`bootstrap.properties file`:
+`bootstrap.properties` file:
 
 ====
 [source,properties]
