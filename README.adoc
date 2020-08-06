@@ -29,15 +29,7 @@ Initializr]. The Initializr offers a fast way to pull in all the dependencies yo
 an application and does a lot of the set up for you.
 
 This guide needs two applications. The first application (the service application) needs
-only the Eureka Server dependency. The following image shows the Initializr set up for the
-service application:
-
-image::images/initializr-service.png[]
-
-NOTE: The preceding image shows the Initializr with Maven chosen as the build tool. You
-can also use Gradle. It also shows values of `com.example` and
-`service-registration-and-discovery-service` as the Group and Artifact, respectively. You
-will use those values throughout the rest of this sample.
+only the Eureka Server dependency.
 
 The following listing shows the `pom.xml` file (for the service application) that is
 created when you choose Maven:
@@ -60,15 +52,7 @@ include::initial/eureka-service/build.gradle[]
 ====
 
 The second application (the client application) needs the Eureka Server and Eureka
-Discovery Client dependencies. The following image shows the Initializr set up for the
-client application:
-
-image::images/initializr-client.png[]
-
-NOTE: The preceding image shows the Initializr with Maven chosen as the build tool. You
-can also use Gradle. It also shows values of `com.example` and
-`service-registration-and-discovery-service` as the Group and Artifact, respectively. You
-will use those values throughout the rest of this sample.
+Discovery Client dependencies.
 
 The following listing shows the `pom.xml` file (for the client application)
 that is created when you choose Maven:
