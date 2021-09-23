@@ -31,53 +31,26 @@ an application and does a lot of the set up for you.
 This guide needs two applications. The first application (the service application) needs
 only the Eureka Server dependency.
 
-The following listing shows the `pom.xml` file (for the service application) that is
-created when you choose Maven:
-
-====
-[src,xml]
-----
-include::initial/eureka-service/pom.xml[]
-----
-====
-
-The following listing shows the `build.gradle` file (for the service application) that is
-created when you choose Gradle:
-
-====
-[src,groovy]
-----
-include::initial/eureka-service/build.gradle[]
-----
-====
-
 The second application (the client application) needs the Eureka Server and Eureka
 Discovery Client dependencies.
-
-The following listing shows the `pom.xml` file (for the client application)
-that is created when you choose Maven:
-
-====
-[src,xml]
-----
-include::initial/eureka-client/pom.xml[]
-----
-====
-
-The following listing shows the `build.gradle` file (for the client
-application) that is created when you choose Gradle:
-
-====
-[src,groovy]
-----
-include::initial/eureka-client/build.gradle[]
-----
-====
 
 NOTE: For convenience, we have provided build files (a `pom.xml` file and a `build.gradle`
 file) at the top of the project (one directory above the `service` and `client`
 directories) that you can use to build both projects at once. We also added the Maven and
 Gradle wrappers there.
+
+To initialize the project, create two applications:
+
+. Navigate to https://start.spring.io.
+This service pulls in all the dependencies you need for an application and does most of the setup for you.
+. Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Java.
+. Click *Dependencies* and select *Eureka Server* for the service application and *Eureka Server* and *Eureka Discovery Client* for the client application.
+. Click *Generate*.
+. Download the resulting ZIP file, which is an archive of a web application that is configured with your choices.
+
+NOTE: If your IDE has the Spring Initializr integration, you can complete this process from your IDE.
+
+NOTE: You can also fork the project from Github and open it in your IDE or other editor.
 
 [[initial]]
 == Start a Eureka Service Registry
