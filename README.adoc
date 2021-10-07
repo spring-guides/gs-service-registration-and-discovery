@@ -39,7 +39,10 @@ file) at the top of the project (one directory above the `service` and `client`
 directories) that you can use to build both projects at once. We also added the Maven and
 Gradle wrappers there.
 
-You can use this https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.5&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=service-registration-and-discovery&name=service-registration-and-discovery&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.service-registration-and-discovery&dependencies=cloud-eureka-server[pre-initialized project] (for the service application) or this https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.5&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=service-registration-and-discovery-client&name=service-registration-and-discovery-client&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.service-registration-and-discovery-client&dependencies=cloud-eureka-server,cloud-eureka[pre-initialized project] (for the client application) and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
+:server-link: https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.5&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=service-registration-and-discovery&name=service-registration-and-discovery&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.service-registration-and-discovery&dependencies=cloud-eureka-server
+:client-link: https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.5&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=service-registration-and-discovery-client&name=service-registration-and-discovery-client&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.service-registration-and-discovery-client&dependencies=cloud-eureka-server,cloud-eureka
+
+You can use this {server-link}[pre-initialized project] (for the service application) or this {client-link}[pre-initialized project] (for the client application) and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
 
 To manually initialize the project:
 
