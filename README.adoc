@@ -23,7 +23,7 @@ The Initializr offers a fast way to pull in all the dependencies you need for an
 This guide needs three applications.
 The first application (the server application) needs
 only the Eureka Server dependency.
-The second and third applications (the client applications) need Eureka Discovery Client and Spring Web dependencies.
+The second and third applications (the client applications) need the Eureka Discovery Client and Spring Web dependencies.
 
 :server-link: https://start.spring.io/#!type=gradle-project&language=java&packaging=jar&groupId=com.example&artifactId=eureka-server&name=eureka-server&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.eureka-server&dependencies=cloud-eureka-server
 :clienta-link: https://start.spring.io/#!type=gradle-project&language=java&packaging=jar&groupId=com.example&artifactId=servicea&name=servicea&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.servicea&dependencies=cloud-eureka,web
@@ -35,16 +35,26 @@ You can use the following links for pre-initialized projects from Spring Initial
 - {clienta-link}[Service A^]
 - {clientb-link}[Service B^]
 
-NOTE: Due to the number of services in this guide, only the solutions are provided in the GitHub repository. If you'd like to start from scratch, please use generate the blank projects using the links above or using https://start.spring.io[Spring Initializr] as defined below.
+NOTE: Due to the number of services in this guide, only the solutions are provided in the GitHub repository. To start from scratch, generate the blank projects using the links above or using https://start.spring.io[Spring Initializr], as defined below.
 
-To manually initialize the project:
+To manually initialize the Eureka Server project:
 
 . Navigate to https://start.spring.io.
 This service pulls in all the dependencies you need for an application and does most of the setup for you.
 . Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Java.
-. Click *Dependencies* and select *Eureka Server* for the server application. Select *Eureka Discovery Client* and *Spring Web* for the client applications.
+. Click *Dependencies* and select *Eureka Server* for the server application.
 . Click *Generate*.
 . Download the resulting ZIP file, which is an archive of a web application that is configured with your choices.
+
+To manually initialize the Service A and Service B projects:
+
+. Navigate to https://start.spring.io.
+This service pulls in all the dependencies you need for an application and does most of the setup for you.
+. Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Java.
+. Select *Eureka Discovery Client* and *Spring Web* for the client applications.
+. Click *Generate*.
+. Download the resulting ZIP file, which is an archive of a web application that is configured with your choices.
+
 
 NOTE: If your IDE has the Spring Initializr integration, you can complete this process from your IDE.
 
@@ -65,7 +75,7 @@ include::eureka-server/src/main/java/com/example/eurekaserver/EurekaServerApplic
 ----
 ====
 
-In a production environment, you will likely want more than one instance of the registry.
+In a production environment, you likely want more than one instance of the registry.
 You can find additional information about configuring the Eureka Server https://docs.spring.io/spring-cloud-netflix/reference/spring-cloud-netflix.html#spring-cloud-eureka-server[here^].
 
 By default, the registry also tries to register itself, so you need to disable that
@@ -81,11 +91,11 @@ include::eureka-server/src/main/resources/application.properties[]
 ----
 ====
 
-You can now run the Eureka Server with the command `./gradlew bootRun`.
+You can now start the Eureka server by running `./gradlew bootRun`.
 
 == Talking to the Registry
 
-Now that you have started a service registry, you can stand up clients that interact with the registry. Our client applications, ServiceA and ServiceB, will automatically register with the Eureka server because we have `spring-cloud-starter-netflix-eureka-client` on the classpath.
+Now that you have started a service registry, you can stand up clients that interact with the registry. Our client applications, ServiceA and ServiceB, automatically register with the Eureka server because we have `spring-cloud-starter-netflix-eureka-client` on the classpath.
 To avoid port conflicts, set the `server.port` parameter in both ServiceA and ServiceB:
 
 Service A:
@@ -104,16 +114,16 @@ include::serviceb/src/main/resources/application.properties[]
 ----
 ====
 
-At this point you should be able to run all three applications.
-You can use the IDE or execute the command `./gradlew bootRun` from each application folder.
+At this point you, should be able to run all three applications.
+You can use the IDE or execute the `./gradlew bootRun` command from each application folder.
 
-When the applications are running, you can view the http://localhost:8761/[Eureka dashboard^].
+When the applications run, you can view the http://localhost:8761/[Eureka dashboard^].
 
 image::eureka-server-dashboard.png[]
 
 == Service A Endpoint
 
-Create a new class `com/example/servicea/controller/ServiceARestController.java` in the `servicea` project that exposes an endpoint you will use to test the application.
+Create a new class called `com/example/servicea/controller/ServiceARestController.java` in the `servicea` project to expose an endpoint you can use to test the application.
 
 ====
 [source,java]
@@ -124,7 +134,7 @@ include::servicea/src/main/java/com/example/servicea/controller/ServiceARestCont
 
 == Service B Endpoint
 
-Create a new class `com/example/serviceb/controller/ServiceBRestController.java` in the `serviceb` project that exposes an endpoint that calls `servicea`.
+Create a new class called `com/example/serviceb/controller/ServiceBRestController.java` in the `serviceb` project to expose an endpoint that calls `servicea`.
 
 ====
 [source,java]
@@ -134,14 +144,14 @@ include::serviceb/src/main/java/com/example/serviceb/controller/ServiceBRestCont
 ====
 
 This class uses a `DiscoveryClient` to find the `ServiceInstance` of `servicea` based only on the application name.
-This guide only has one instance of `servicea`, so we can look only at the first instance.
-This is seen in the line:
+This guide has only one instance of `servicea`, so we can look only at the first instance.
+This is seen in the following line:
 
 ```
 ServiceInstance serviceInstance = discoveryClient.getInstances("servicea").get(0);
 ```
 
-Once you have the `ServiceInstance` that refers to the location of `servicea`, you can now use the information in Spring Framework's https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-restclient[Rest Client].
+Once you have a `ServiceInstance` that refers to the location of `servicea`, you can now use the information in Spring Framework's https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-restclient[Rest Client].
 
 ```
 
@@ -150,7 +160,7 @@ Once you have the `ServiceInstance` that refers to the location of `servicea`, y
 
 ```
 
-You can test all three applications by executing the command:
+You can test all three applications by running the following command:
 
 ====
 [source,bash]
@@ -170,14 +180,14 @@ Hello world from Service A!
 
 == Test the Application
 
-When you have implemented the code above, or you are using the solution repository, here is an outline of the steps in this guide:
+This guide walked through the following steps (which you could do by implementing the code shown throughout this guide or by using the code in the solution repository):
 
-- Run `eureka-server` with the command `./gradlew bootRun` from the `eureka-server` folder
-- Run `servicea` with the command `./gradlew bootRun` from the `servicea` folder
-- Run `serviceb` with the command `./gradlew bootRun` from the `serviceb` folder
-- Observe `servicea` and `serviceb` are registered by viewing the Eureka Dahsboard at http://localhost:8761/
-- Run the command `curl http://localhost:8082/serviceB/helloEureka` to test all three applications are working properly
-- Observe the output `Hello world from Service A!`
+- Run `eureka-server` with the `./gradlew bootRun` command from the `eureka-server` folder
+- Run `servicea` with the `./gradlew bootRun` command from the `servicea` folder
+- Run `serviceb` with the `./gradlew bootRun` command from the `serviceb` folder
+- Observe that `servicea` and `serviceb` are registered by viewing the Eureka Dahsboard at http://localhost:8761/
+- Run the `curl http://localhost:8082/serviceB/helloEureka` command to test all three applications are working properly
+- Observe the output, `Hello world from Service A!`
 
 NOTE: There is a short delay while `servicea` and `serviceb` register themselves and refresh the instances from the registry. If the `curl` command initially fails, wait a minute and try again.
 
