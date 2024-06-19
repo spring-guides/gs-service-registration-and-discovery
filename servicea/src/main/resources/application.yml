@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: servicea
+server:
+  port: 8081
