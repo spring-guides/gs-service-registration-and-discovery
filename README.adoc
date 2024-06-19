@@ -155,8 +155,7 @@ Once you have a `ServiceInstance` that refers to the location of `servicea`, you
 
 ```
 
-... = restClient.get()
-				.uri(serviceInstance.getUri() + "/helloWorld")...
+... = restClient.get().uri(serviceInstance.getUri() + "/helloWorld")...
 
 ```
 

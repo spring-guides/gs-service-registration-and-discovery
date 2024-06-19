@@ -9,8 +9,8 @@ import org.springframework.web.client.RestClient;
 @RestController
 public class ServiceBRestController {
 
-	private DiscoveryClient discoveryClient;
-	private RestClient restClient;
+	private final DiscoveryClient discoveryClient;
+	private final RestClient restClient;
 
 	public ServiceBRestController(DiscoveryClient discoveryClient, RestClient.Builder restClientBuilder) {
 		this.discoveryClient = discoveryClient;
