@@ -25,9 +25,9 @@ The first application (the server application) needs
 only the Eureka Server dependency.
 The second and third applications (the client applications) need the Eureka Discovery Client and Spring Web dependencies.
 
-:server-link: https://start.spring.io/#!type=gradle-project&language=java&packaging=jar&groupId=com.example&artifactId=eureka-server&name=eureka-server&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.eureka-server&dependencies=cloud-eureka-server
-:clienta-link: https://start.spring.io/#!type=gradle-project&language=java&packaging=jar&groupId=com.example&artifactId=servicea&name=servicea&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.servicea&dependencies=cloud-eureka,web
-:clientb-link: https://start.spring.io/#!type=gradle-project&language=java&packaging=jar&groupId=com.example&artifactId=serviceb&name=serviceb&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.serviceb&dependencies=cloud-eureka,web
+:server-link: https://start.spring.io/#!type=maven-project&language=java&packaging=jar&groupId=com.example&artifactId=eureka-server&name=eureka-server&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.eureka-server&dependencies=cloud-eureka-server
+:clienta-link: https://start.spring.io/#!type=maven-project&language=java&packaging=jar&groupId=com.example&artifactId=servicea&name=servicea&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.servicea&dependencies=cloud-eureka,web
+:clientb-link: https://start.spring.io/#!type=maven-project&language=java&packaging=jar&groupId=com.example&artifactId=serviceb&name=serviceb&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.serviceb&dependencies=cloud-eureka,web
 
 You can use the following links for pre-initialized projects from Spring Initializr:
 
@@ -41,7 +41,7 @@ To manually initialize the Eureka Server project:
 
 . Navigate to https://start.spring.io.
 This service pulls in all the dependencies you need for an application and does most of the setup for you.
-. Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Java.
+. Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Maven and Java.
 . Click *Dependencies* and select *Eureka Server* for the server application.
 . Click *Generate*.
 . Download the resulting ZIP file, which is an archive of a web application that is configured with your choices.
@@ -50,7 +50,7 @@ To manually initialize the Service A and Service B projects:
 
 . Navigate to https://start.spring.io.
 This service pulls in all the dependencies you need for an application and does most of the setup for you.
-. Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Java.
+. Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Maven and Java.
 . Select *Eureka Discovery Client* and *Spring Web* for the client applications.
 . Click *Generate*.
 . Download the resulting ZIP file, which is an archive of a web application that is configured with your choices.
@@ -91,7 +91,7 @@ include::eureka-server/src/main/resources/application.yml[]
 ----
 ====
 
-You can now start the Eureka server by running `./gradlew bootRun`.
+You can now start the Eureka server by running `./mvnw spring-boot:run`.
 
 == Talking to the Registry
 
@@ -115,7 +115,7 @@ include::serviceb/src/main/resources/application.yml[]
 ====
 
 At this point you, should be able to run all three applications.
-You can use the IDE or execute the `./gradlew bootRun` command from each application folder.
+You can use the IDE or execute the `./mvnw spring-boot:run` command from each application folder.
 
 When the applications run, you can view the http://localhost:8761/[Eureka dashboard^].
 
@@ -181,9 +181,9 @@ Hello world from Service A!
 
 This guide walked through the following steps (which you could do by implementing the code shown throughout this guide or by using the code in the solution repository):
 
-- Run `eureka-server` with the `./gradlew bootRun` command from the `eureka-server` folder
-- Run `servicea` with the `./gradlew bootRun` command from the `servicea` folder
-- Run `serviceb` with the `./gradlew bootRun` command from the `serviceb` folder
+- Run `eureka-server` with the `./mvnw spring-boot:run` command from the `eureka-server` folder
+- Run `servicea` with the `./mvnw spring-boot:run` command from the `servicea` folder
+- Run `serviceb` with the `./mvnw spring-boot:run` command from the `serviceb` folder
 - Observe that `servicea` and `serviceb` are registered by viewing the Eureka Dahsboard at http://localhost:8761/
 - Run the `curl http://localhost:8082/serviceB/helloEureka` command to test all three applications are working properly
 - Observe the output, `Hello world from Service A!`
