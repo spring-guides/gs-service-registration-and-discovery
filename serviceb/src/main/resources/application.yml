@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: serviceb
+server:
+  port: 8082
