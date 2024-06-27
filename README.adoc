@@ -164,7 +164,7 @@ You can test all three applications by running the following command:
 ====
 [source,bash]
 ----
-curl http://localhost:8082/serviceB/helloEureka
+curl http://localhost:8082/helloEureka
 ----
 ====
 
@@ -185,7 +185,7 @@ This guide walked through the following steps (which you could do by implementin
 - Run `servicea` with the `./mvnw spring-boot:run` command from the `servicea` folder
 - Run `serviceb` with the `./mvnw spring-boot:run` command from the `serviceb` folder
 - Observe that `servicea` and `serviceb` are registered by viewing the Eureka Dahsboard at http://localhost:8761/
-- Run the `curl http://localhost:8082/serviceB/helloEureka` command to test all three applications are working properly
+- Run the `curl http://localhost:8082/helloEureka` command to test all three applications are working properly
 - Observe the output, `Hello world from Service A!`
 
 NOTE: There is a short delay while `servicea` and `serviceb` register themselves and refresh the instances from the registry. If the `curl` command initially fails, wait a minute and try again.
