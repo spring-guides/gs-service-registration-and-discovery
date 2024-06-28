@@ -1,0 +1,39 @@
+version: 2
+updates:
+
+  - package-ecosystem: "maven"
+    directories:
+      - "/eureka-server"
+      - "/servicea"
+      - "/serviceb"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+    schedule:
+      interval: "monthly"
+    target-branch: "main"
+    groups:
+      guide-dependencies-maven:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "gradle"
+    directories:
+      - "/eureka-server"
+      - "/servicea"
+      - "/serviceb"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+    schedule:
+      interval: "monthly"
+    target-branch: "main"
+    groups:
+      guide-dependencies-gradle:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
