@@ -62,7 +62,7 @@ NOTE: If your IDE has the Spring Initializr integration, you can complete this p
 == Start a Eureka Service Registry
 
 You first need a Eureka Server. You can use Spring Cloud's `@EnableEurekaServer`
-to stand up a registry with which other applications can communicate. This is a regular
+to start up a registry with which other applications can communicate. This is a regular
 Spring Boot application with one annotation (`@EnableEurekaServer`) added to enable the
 service registry. The following listing (from
 `eureka-server/src/main/java/com/example/eurekaserver/EurekaServerApplication.java`)
@@ -95,7 +95,7 @@ You can now start the Eureka server by running `./mvnw spring-boot:run`.
 
 == Talking to the Registry
 
-Now that you have started a service registry, you can stand up clients that interact with the registry. Our client applications, ServiceA and ServiceB, automatically register with the Eureka server because we have `spring-cloud-starter-netflix-eureka-client` on the classpath.
+Now that you have started a service registry, you can start up clients that interact with the registry. Our client applications, ServiceA and ServiceB, automatically register with the Eureka server because we have `spring-cloud-starter-netflix-eureka-client` on the classpath.
 To avoid port conflicts, set the `server.port` parameter in both ServiceA and ServiceB:
 
 Service A:
@@ -191,7 +191,7 @@ This guide walked through the following steps (which you could do by implementin
 NOTE: There is a short delay while `servicea` and `serviceb` register themselves and refresh the instances from the registry. If the `curl` command initially fails, wait a minute and try again.
 
 == Summary
-Congratulations! You have just used Spring to stand up a Netflix Eureka service registry
+Congratulations! You have just used Spring to start up a Netflix Eureka service registry
 and to use that registry in a client application.
 
 == See Also
