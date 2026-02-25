@@ -114,7 +114,7 @@ include::serviceb/src/main/resources/application.yml[]
 ----
 ====
 
-At this point you, should be able to run all three applications.
+At this point, you should be able to run all three applications.
 You can use the IDE or execute the `./mvnw spring-boot:run` command from each application folder.
 
 When the applications run, you can view the http://localhost:8761/[Eureka dashboard^].
